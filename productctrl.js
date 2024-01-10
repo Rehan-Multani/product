@@ -1,8 +1,12 @@
 const db = require("./productmodel");
 const asyncHandler = require("express-async-handler");
-const multer = require('multer');
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.SECRET_KEY,
+});
 
 const getpaginate = async (req, res) => {
     try {
@@ -26,44 +30,26 @@ const getdata = asyncHandler(async (req, res) => {
 
 const insertdata = asyncHandler(async (req, res) => {
     try {
-    
-        const upload = multer({
-            storage: multer.diskStorage({
-                destination: function (req, file, cb) {
-                    cb(null, 'uploads');
-                },
-                filename: function (req, file, cb) {
-                    cb(null, file.fieldname + "-" + Date.now() + ".jpg");
-                },
-            }),
-        }).fields([
-            { name: 'catImg', maxCount: 1 },
-            { name: 'productImages', maxCount: 1 },
-        ]); // Use 'fields' instead of 'single' for multiple files
 
-        upload(req, res, async function (err) {
-            if (err instanceof multer.MulterError) {
-                // A Multer error occurred when uploading
-                return res.status(400).json({ message: 'Multer error' });
-            } else if (err) {
-                // An unknown error occurred when uploading
-                return res.status(500).json(err);
+        const dataUrl1 = `data:${req.files['catImg'][0].mimetype};base64,${req.files['catImg'][0].buffer.toString('base64')}`;
+        const dataUrl2 = `data:${req.files['productImages'][0].mimetype};base64,${req.files['productImages'][0].buffer.toString('base64')}`;
+
+        const result1 = await cloudinary.uploader.upload(dataUrl1);
+        const result2 = await cloudinary.uploader.upload(dataUrl2);
+
+        let data = await db.create(
+            {
+                catImg: result1.secure_url,
+                productImages: result2.secure_url,
+                ...req.body
             }
-
-            const imageUrl1 = `https://${req.get('host')}/uploads/${req.files['catImg'][0].filename}`;
-            const imageUrl2 = `https://${req.get('host')}/uploads/${req.files['productImages'][0].filename}`;
-
-            let data = await db.create({
-                catImg: imageUrl1,
-                productImages: imageUrl2,
-                ...req.body,
-            });
-            res.status(201).json(data);
-        });
+        );
+        res.status(201).json(data);
     } catch (error) {
         res.status(404).json(error.message);
     }
 });
+
 
 
 const updatedata = asyncHandler(async (req, res) => {
@@ -73,7 +59,8 @@ const updatedata = asyncHandler(async (req, res) => {
         const dataUrl1 = `data:${req.files['catImg'][0].mimetype};base64,${req.files['catImg'][0].buffer.toString('base64')}`;
         const dataUrl2 = `data:${req.files['productImages'][0].mimetype};base64,${req.files['productImages'][0].buffer.toString('base64')}`;
 
-       
+        const result1 = await cloudinary.uploader.upload(dataUrl1);
+        const result2 = await cloudinary.uploader.upload(dataUrl2);
 
         let result = await db.updateOne(
             { _id: req.params.id },
