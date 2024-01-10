@@ -15,7 +15,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use("/api/addproduct", require('./productroute'));
+app.use("/api/cartItems", require('./productroute'));
+app.use("/api/productReviews", require('./productReviewsRoute'));
+app.use("/api/productData", require('./productDataRoute'));
 
 app.listen(PORT, () => {
   console.log(
