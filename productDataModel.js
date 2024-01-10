@@ -1,41 +1,37 @@
 const mongoose = require("mongoose");
 
 const data = mongoose.Schema({
-    cat_name: {
+    id:{
         type: String,
         required: true,
 
     },
-    id: {
+    productName: {
         type: String,
         required: true,
 
     },
-    image: {
+    price: {
         type: String,
         required: true,
 
     },
-    items: {
+    oldPrice: {
         type: String,
         required: true,
 
     },
-    products: {
-        type: String,
-        required: true,
-
-    },
+    weight: [],
     catImg: {
         type: String,
         required: true,
 
-    }, 
+    },
     discount: {
         type: String,
         required: true,
 
-    },
+    }, 
     brand: {
         type: String,
         required: true,
@@ -56,7 +52,6 @@ const data = mongoose.Schema({
         required: true,
 
     },
-    weight: []
 
 },
 {

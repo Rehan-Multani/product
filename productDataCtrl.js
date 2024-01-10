@@ -31,6 +31,9 @@ const getdata = asyncHandler(async (req, res) => {
 const insertdata = asyncHandler(async (req, res) => {
     try {
 
+        const count = await db.countDocuments();
+        const generatedID = `${(count + 1).toString().padStart('0')}`;
+
         const dataUrl1 = `data:${req.files['catImg'][0].mimetype};base64,${req.files['catImg'][0].buffer.toString('base64')}`;
         const dataUrl2 = `data:${req.files['productImages'][0].mimetype};base64,${req.files['productImages'][0].buffer.toString('base64')}`;
 
@@ -39,6 +42,7 @@ const insertdata = asyncHandler(async (req, res) => {
 
         let data = await db.create(
             {
+                id:generatedID,
                 catImg: result1.secure_url,
                 productImages: result2.secure_url,
                 ...req.body
@@ -49,8 +53,6 @@ const insertdata = asyncHandler(async (req, res) => {
         res.status(404).json(error.message);
     }
 });
-
-
 
 const updatedata = asyncHandler(async (req, res) => {
     try {
