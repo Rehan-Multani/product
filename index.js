@@ -18,6 +18,7 @@ app.use(cookieParser());
 app.use("/api/cartItems", require('./productroute'));
 app.use("/api/productReviews", require('./productReviewsRoute'));
 app.use("/api/productData", require('./productDataRoute'));
+app.use("/api/salon", require('./Product/Route'));
 
 app.listen(PORT, () => {
   console.log(
