@@ -12,7 +12,7 @@ router.get("/:id", getdata)
 router.post("/",
     // upload.fields([{ name: 'image1' }, { name: 'image2' }, { name: 'image3' }, { name: 'image4' }]),
     insertdata)
-router.put("/:id", upload.fields([{ name: 'image' }, { name: 'image1' }, { name: 'image2' }, { name: 'image3' }, { name: 'image4' }]), updatedata)
+router.put("/:id", updatedata)
 router.delete("/:id", deletedata)
 
 module.exports = router;

@@ -75,14 +75,7 @@ const updatedata = asyncHandler(async (req, res) => {
         let result = await db.updateOne(
             { _id: req.params.id },
             {
-                $set: {
-                    image: result1.secure_url,
-                    image1: result2.secure_url,
-                    image2: result3.secure_url,
-                    image3: result4.secure_url,
-                    image4: result5.secure_url,
-                    ...req.body
-                }
+                $set: req.body
             }
         );
         res.status(200).json(result);
