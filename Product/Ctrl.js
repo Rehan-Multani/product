@@ -31,29 +31,23 @@ const getdata = asyncHandler(async (req, res) => {
 const insertdata = asyncHandler(async (req, res) => {
     try {
 
-        const dataUrl1 = `data:${req.files['image'][0].mimetype};base64,${req.files['image'][0].buffer.toString('base64')}`;
-        const dataUrl2 = `data:${req.files['image1'][0].mimetype};base64,${req.files['image1'][0].buffer.toString('base64')}`;
-        const dataUrl3 = `data:${req.files['image2'][0].mimetype};base64,${req.files['image2'][0].buffer.toString('base64')}`;
-        const dataUrl4 = `data:${req.files['image3'][0].mimetype};base64,${req.files['image3'][0].buffer.toString('base64')}`;
-        const dataUrl5 = `data:${req.files['image4'][0].mimetype};base64,${req.files['image4'][0].buffer.toString('base64')}`;
+        // const dataUrl1 = `data:${req.files['image'][0].mimetype};base64,${req.files['image'][0].buffer.toString('base64')}`;
+        // const dataUrl2 = `data:${req.files['image1'][0].mimetype};base64,${req.files['image1'][0].buffer.toString('base64')}`;
+        // const dataUrl3 = `data:${req.files['image2'][0].mimetype};base64,${req.files['image2'][0].buffer.toString('base64')}`;
+        // const dataUrl4 = `data:${req.files['image3'][0].mimetype};base64,${req.files['image3'][0].buffer.toString('base64')}`;
+        // const dataUrl5 = `data:${req.files['image4'][0].mimetype};base64,${req.files['image4'][0].buffer.toString('base64')}`;
 
-        const result1 = await cloudinary.uploader.upload(dataUrl1);
-        const result2 = await cloudinary.uploader.upload(dataUrl2);
-        const result3 = await cloudinary.uploader.upload(dataUrl3);
-        const result4 = await cloudinary.uploader.upload(dataUrl4);
-        const result5 = await cloudinary.uploader.upload(dataUrl5);
-
+        // const result1 = await cloudinary.uploader.upload(dataUrl1);
+        // const result2 = await cloudinary.uploader.upload(dataUrl2);
+        // const result3 = await cloudinary.uploader.upload(dataUrl3);
+        // const result4 = await cloudinary.uploader.upload(dataUrl4);
+        // const result5 = await cloudinary.uploader.upload(dataUrl5);
+        // console.log(result1);
         let data = await db.create(
-            {
-                image: result1.secure_url,
-                image1: result2.secure_url,
-                image2: result3.secure_url,
-                image3: result4.secure_url,
-                image4: result5.secure_url,
-                ...req.body
-            }
+            req.body
         );
         res.status(201).json(data);
+
     } catch (error) {
         res.status(404).json(error.message);
     }
@@ -65,17 +59,17 @@ const updatedata = asyncHandler(async (req, res) => {
     try {
 
 
-        const dataUrl1 = `data:${req.files['image'][0].mimetype};base64,${req.files['image'][0].buffer.toString('base64')}`;
-        const dataUrl2 = `data:${req.files['image1'][0].mimetype};base64,${req.files['image1'][0].buffer.toString('base64')}`;
-        const dataUrl3 = `data:${req.files['image2'][0].mimetype};base64,${req.files['image2'][0].buffer.toString('base64')}`;
-        const dataUrl4 = `data:${req.files['image3'][0].mimetype};base64,${req.files['image3'][0].buffer.toString('base64')}`;
-        const dataUrl5 = `data:${req.files['image4'][0].mimetype};base64,${req.files['image4'][0].buffer.toString('base64')}`;
+        // const dataUrl1 = `data:${req.files['image'][0].mimetype};base64,${req.files['image'][0].buffer.toString('base64')}`;
+        // const dataUrl2 = `data:${req.files['image1'][0].mimetype};base64,${req.files['image1'][0].buffer.toString('base64')}`;
+        // const dataUrl3 = `data:${req.files['image2'][0].mimetype};base64,${req.files['image2'][0].buffer.toString('base64')}`;
+        // const dataUrl4 = `data:${req.files['image3'][0].mimetype};base64,${req.files['image3'][0].buffer.toString('base64')}`;
+        // const dataUrl5 = `data:${req.files['image4'][0].mimetype};base64,${req.files['image4'][0].buffer.toString('base64')}`;
 
-        const result1 = await cloudinary.uploader.upload(dataUrl1);
-        const result2 = await cloudinary.uploader.upload(dataUrl2);
-        const result3 = await cloudinary.uploader.upload(dataUrl3);
-        const result4 = await cloudinary.uploader.upload(dataUrl4);
-        const result5 = await cloudinary.uploader.upload(dataUrl5);
+        // const result1 = await cloudinary.uploader.upload(dataUrl1);
+        // const result2 = await cloudinary.uploader.upload(dataUrl2);
+        // const result3 = await cloudinary.uploader.upload(dataUrl3);
+        // const result4 = await cloudinary.uploader.upload(dataUrl4);
+        // const result5 = await cloudinary.uploader.upload(dataUrl5);
 
 
         let result = await db.updateOne(
