@@ -20,6 +20,8 @@ app.use("/api/productReviews", require('./productReviewsRoute'));
 app.use("/api/productData", require('./productDataRoute'));
 app.use("/api/salon", require('./Product/Route'));
 app.use("/api/sofwarenetworking", require('./SoftwareNetworking/Route'));
+app.use("/api/furniture", require('./furniture/Route'));
+
 
 
 app.listen(PORT, () => {
