@@ -22,6 +22,8 @@ app.use("/api/salon", require('./Product/Route'));
 app.use("/api/sofwarenetworking", require('./SoftwareNetworking/Route'));
 app.use("/api/furniture", require('./furniture/Route'));
 app.use("/api/bad", require('./Bad/Route'));
+app.use("/api/bath", require('./BATH/Route'));
+
 
 
 
