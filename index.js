@@ -19,6 +19,8 @@ app.use("/api/cartItems", require('./productroute'));
 app.use("/api/productReviews", require('./productReviewsRoute'));
 app.use("/api/productData", require('./productDataRoute'));
 app.use("/api/salon", require('./Product/Route'));
+app.use("/api/sofwarenetworking", require('./SoftwareNetworking/Route'));
+
 
 app.listen(PORT, () => {
   console.log(
