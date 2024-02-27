@@ -1,15 +1,16 @@
 const db = require("../Data/Model");
 const asyncHandler = require("express-async-handler");
+let apiCounter = 0;
 
 const getpaginate = async (req, res) => {
     try {
+        apiCounter++;
         const data = await db.find()
-        await res.status(200).json(data);
+        res.status(200).json({ ApiCounter: apiCounter, data: data, });
     } catch (error) {
-        res.status(404).json(error.message);
-    }
-};
-
+        res.status(500).json({ error: error.message });
+    };
+}
 
 const getdata = asyncHandler(async (req, res) => {
     try {
@@ -27,10 +28,11 @@ const insertdata = asyncHandler(async (req, res) => {
         const count = await db.countDocuments();
         const generatedID = (count + 1).toString().padStart('0')
         let data = await db.create(
-            {
-                sessions: generatedID,
-                ...req.body
-            }
+            // {
+            //     sessions: generatedID,
+            //     ...req.body
+            // }
+            req.body
         );
         res.status(201).json(data);
 
