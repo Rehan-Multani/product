@@ -23,8 +23,14 @@ const getdata = asyncHandler(async (req, res) => {
 
 const insertdata = asyncHandler(async (req, res) => {
     try {
+        // let count = 0
+        const count = await db.countDocuments();
+        const generatedID = (count + 1).toString().padStart('0')
         let data = await db.create(
-            req.body
+            {
+                sessions: generatedID,
+                ...req.body
+            }
         );
         res.status(201).json(data);
 

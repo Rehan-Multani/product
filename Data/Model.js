@@ -25,4 +25,4 @@ const data = mongoose.Schema({
     {
         timestamps: true,
     })
-module.exports = mongoose.model("datas", data);
+module.exports = mongoose.model("datacollect", data);
